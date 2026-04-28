@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header>
+    <div class="logo">⬡ TASKR</div>
+    <div class="tagline">Gestión de Tareas</div>
+  </header>
+
+  <main>
+    <!-- USUARIOS -->
+    <section class="panel" id="panel-usuarios">
+      <div class="panel-header">
+        <span class="panel-num">01</span>
+        <h2>Usuarios</h2>
+      </div>
+
+      <div class="form-row">
+        <div class="input-group">
+          <label for="userName">Nombre del usuario</label>
+          <input id="userName" type="text" placeholder="Ej: Ana Torres" autocomplete="off"/>
+          <span class="error-msg" id="err-usuario"></span>
+        </div>
+        <button class="btn btn-primary" onclick="crearUsuario()">
+          <span>+</span> Crear Usuario
+        </button>
+      </div>
+
+      <ul id="listaUsuarios" class="item-list"></ul>
+    </section>
+
+    <!-- TAREAS -->
+    <section class="panel" id="panel-tareas">
+      <div class="panel-header">
+        <span class="panel-num">02</span>
+        <h2>Tareas</h2>
+      </div>
+
+      <!-- Formulario Crear/Editar -->
+      <div class="form-row form-row--stacked">
+        <div class="input-group">
+          <label for="taskTitle">Título de la tarea</label>
+          <input id="taskTitle" type="text" placeholder="Describe la tarea..." autocomplete="off"/>
+          <span class="error-msg" id="err-tarea-titulo"></span>
+        </div>
+        <div class="input-group">
+          <label for="taskUser">Asignar a usuario</label>
+          <select id="taskUser">
+            <option value="">— Seleccionar usuario —</option>
+          </select>
+          <span class="error-msg" id="err-tarea-usuario"></span>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-primary" id="btnCrearTarea" onclick="guardarTarea()">
+            <span>+</span> Crear Tarea
+          </button>
+          <button class="btn btn-ghost" id="btnCancelarEdicion" onclick="cancelarEdicion()" style="display:none">
+            ✕ Cancelar
+          </button>
+        </div>
+        <input type="hidden" id="editingTaskId" value=""/>
+      </div>
+
+      <!-- Filtros de búsqueda -->
+      <div class="search-bar">
+        <div class="search-group">
+          <label for="filtroId">Buscar por ID</label>
+          <input id="filtroId" type="number" placeholder="Ej: 3" oninput="cargarTareas()"/>
+        </div>
+        <div class="search-group">
+          <label for="filtroNombre">Buscar por Nombre</label>
+          <input id="filtroNombre" type="text" placeholder="Ej: diseño..." oninput="cargarTareas()"/>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="limpiarFiltros()">↺ Limpiar</button>
+      </div>
+
+      <ul id="listaTareas" class="item-list"></ul>
+    </section>
+  </main>
+
+  <!-- Toast de notificaciones -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
